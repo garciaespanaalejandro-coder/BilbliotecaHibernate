@@ -1,6 +1,7 @@
 package dao;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import model.Categoria;
 
 import java.util.Optional;
@@ -13,22 +14,55 @@ public class CategoriaDAOHib implements CategoriaDAO{
         this.entityManager=entityManager;
     }
     @Override
-    public boolean crearUsuario(Categoria u) {
-        return false;
+    public boolean crearUsuario(Categoria categoria) {
+        EntityTransaction tran= entityManager.getTransaction();
+        try {
+            tran.begin();
+            entityManager.persist(categoria);
+            tran.commit();
+            return true;
+        } catch (Exception e) {
+            tran.rollback();
+            return false;
+        }
     }
 
     @Override
     public Optional<Categoria> buscarPorId(int id) {
-        return Optional.empty();
+        Categoria cat= entityManager.find(Categoria.class, id);
+        Optional<Categoria> categoriaRecuperada= Optional.of(cat);
+        return categoriaRecuperada;
     }
 
     @Override
     public Categoria actualizarUsuario(Categoria u) {
-        return null;
+        EntityTransaction tran= entityManager.getTransaction();
+        try{
+            tran.begin();
+            Categoria categoria= entityManager.merge(u);
+            tran.commit();
+            return categoria;
+        } catch (Exception e) {
+            tran.rollback();
+            throw new RuntimeException("Error al actualizar la categoria: "+e.getMessage());
+        }
     }
 
     @Override
     public boolean borrarUsuario(Categoria u) {
-        return false;
+        EntityTransaction tran= entityManager.getTransaction();
+        try{
+            tran.begin();
+            Categoria categoria= entityManager.find(Categoria.class, u.getId());
+            if (categoria!=null){
+                entityManager.remove(categoria);
+                tran.commit();
+                return true;
+            }
+            return false;
+        }catch (Exception e){
+            tran.rollback();
+            return false;
+        }
     }
 }
