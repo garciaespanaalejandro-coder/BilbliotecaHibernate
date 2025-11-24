@@ -1,7 +1,6 @@
 package dao;
 
 import model.Usuario;
-
 import java.util.Optional;
 
 public interface UsuarioDAO {

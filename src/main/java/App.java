@@ -1,7 +1,6 @@
-import dao.UsuariDAOHib;
+import dao.UsuarioDAOHib;
 import dao.UsuarioDAO;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import model.Usuario;
 import org.slf4j.bridge.SLF4JBridgeHandler;
@@ -18,7 +17,7 @@ public class App {
                 .createEntityManager()
         ){
             System.out.println("entra aquí2");
-            UsuarioDAO usuarioDAO = new UsuariDAOHib(em);
+            UsuarioDAO usuarioDAO = new UsuarioDAOHib(em);
 
             Optional<Usuario> usuarioOptional= usuarioDAO.buscarPorId(1);
 

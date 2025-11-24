@@ -6,11 +6,11 @@ import model.Usuario;
 
 import java.util.Optional;
 
-public class UsuariDAOHib implements  UsuarioDAO{
+public class UsuarioDAOHib implements  UsuarioDAO{
 
     private EntityManager entityManager;
 
-    public UsuariDAOHib(EntityManager entityManager){
+    public UsuarioDAOHib(EntityManager entityManager){
         this.entityManager=entityManager;
     }
 
