@@ -3,9 +3,9 @@ package model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
+@Table(name ="prestamo" )
 public class Prestamo {
 
     @Id

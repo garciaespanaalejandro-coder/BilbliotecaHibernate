@@ -25,7 +25,7 @@ public class App {
             LibroDAO libroDAO= new LibroDAOHib(em);
             PrestamoDAO prestamoDAO= new PrestamoDAOHib(em);
 
-            //PROBAMOS PARA ENCONTRAR
+//PROBAMOS PARA ENCONTRAR
 
             System.out.println("======COMIENZO DE BUSCAR POR ID====");
             Optional<Usuario> usuarioOptional= usuarioDAO.buscarPorId(1);
@@ -54,44 +54,21 @@ public class App {
                System.out.println("autor no econtrado");
            }
 
-           System.out.println("====FIN DE ENCONTRAR POR ID===");
-
-           System.out.println("======COMIENZO DE CREAR PRESTAMO====");
-
-           Prestamo prestamo = new Prestamo();
-           prestamo.setFecha_inicio(LocalDate.now());
-           prestamo.setFecha_fin(LocalDate.now().plusDays(15));
-           prestamo.setFecha_devolucion(null);  // aún no devuelto
-           prestamo.setEstado(EstadoPrestamo.ACTIVO);
-           prestamo.setUsuario_id(1);      // asegúrate de que exista en tu BD
-           prestamo.setEjemplar_id(1);     // asegúrate de que exista en tu BD
-
-           boolean creado = prestamoDAO.crearPrestamo(prestamo);
-
-           if (creado) {
-               System.out.println("=== PRESTAMO CREADO ===");
-               System.out.println(prestamo);
-           } else {
-               System.out.println("Error al crear el préstamo");
-           }
-
-           System.out.println("======FIN DE CREAR PRESTAMO====");
 
            System.out.println("======BUSCAR PRESTAMO POR ID=====");
 
-           Optional<Prestamo> prestamoBuscado = prestamoDAO.buscarPorId(prestamo.getId());
-
-           if (prestamoBuscado.isPresent()) {
-               Prestamo p = prestamoBuscado.get();
-               System.out.println("Préstamo encontrado: " + p);
-           } else {
-               System.out.println("No se encontró el préstamo");
+           if (prestamoOptional.isPresent()){
+               System.out.println("===USUARIO ENCONTRADO===");
+               System.out.println(prestamoOptional.get());
+           }else {
+               System.out.println("Usuario no econtrado");
            }
+
            System.out.println();
 
            System.out.println("======ACTUALIZAR PRESTAMO=====");
-           if (prestamoBuscado.isPresent()){
-               Prestamo p= prestamoBuscado.get();
+           if (prestamoOptional.isPresent()){
+               Prestamo p= prestamoOptional.get();
 
                p.setEstado(EstadoPrestamo.RETRASADO);
                p.setFecha_devolucion(LocalDate.now());
