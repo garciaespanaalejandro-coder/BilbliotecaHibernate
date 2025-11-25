@@ -19,10 +19,9 @@ public class App {
         ){
             System.out.println("entra aquí2");
             UsuarioDAO usuarioDAO = new UsuarioDAOHib(em);
+
             AutorDAO autorDAO= new AutorDAOHib(em);
             CategoriaDAO categoriaDAO= new CategoriaDAOHib(em);
-            EjemplarDAO ejemplarDAO=new EjemplarDAOHib(em);
-            LibroDAO libroDAO= new LibroDAOHib(em);
             PrestamoDAO prestamoDAO= new PrestamoDAOHib(em);
 
 //PROBAMOS PARA ENCONTRAR
@@ -33,12 +32,12 @@ public class App {
             Optional<Autor> autorOptional= autorDAO.buscarPorId(1);
             Optional<Prestamo> prestamoOptional= prestamoDAO.buscarPorId(1);
 
-            if (usuarioOptional.isPresent()){
-                System.out.println("===USUARIO ENCONTRADO===");
-                System.out.println(usuarioOptional.get());
-            }else {
-                System.out.println("Usuario no econtrado");
-            }
+//            if (usuarioOptional.isPresent()){
+//                System.out.println("===USUARIO ENCONTRADO===");
+//                System.out.println(usuarioOptional.get());
+//            }else {
+//                System.out.println("Usuario no econtrado");
+//            }
 
            if (categoriaOptional.isPresent()){
                System.out.println("===CATEGORIA ENCONTRADA===");
@@ -58,28 +57,33 @@ public class App {
            System.out.println("======BUSCAR PRESTAMO POR ID=====");
 
            if (prestamoOptional.isPresent()){
-               System.out.println("===USUARIO ENCONTRADO===");
+               System.out.println("===PRESTAMO ENCONTRADO===");
+               System.out.println("Antes de acceder al prestamo");
+               System.out.println("Clase: "+prestamoOptional.get().getUsuario().getClass());
                System.out.println(prestamoOptional.get());
+               System.out.println("Despues de acceder al prestamo: ");
+               System.out.println("Uduario ID: "+prestamoOptional.get().getUsuario().getId());
            }else {
-               System.out.println("Usuario no econtrado");
+               System.out.println("PRESTAMO no econtrado");
            }
 
            System.out.println();
 
-           System.out.println("======ACTUALIZAR PRESTAMO=====");
-           if (prestamoOptional.isPresent()){
-               Prestamo p= prestamoOptional.get();
+//       todo    System.out.println("======ACTUALIZAR PRESTAMO=====");
 
-               p.setEstado(EstadoPrestamo.RETRASADO);
-               p.setFecha_devolucion(LocalDate.now());
-
-               Prestamo actualizado = prestamoDAO.actualizarPrestamo(p);
-
-               System.out.println("Préstamo actualizado: "+actualizado);
-           }else{
-               System.out.println("No se ha podido actualizar el prestamo.");
-           }
-
+//           if (prestamoOptional.isPresent()){
+//               Prestamo p= prestamoOptional.get();
+//
+//               p.setEstado(EstadoPrestamo.RETRASADO);
+//               p.setFecha_devolucion(LocalDate.now());
+//
+//               Prestamo actualizado = prestamoDAO.actualizarPrestamo(p);
+//
+//               System.out.println("Préstamo actualizado: "+actualizado);
+//           }else{
+//               System.out.println("No se ha podido actualizar el prestamo.");
+//           }
+//
 
 
            System.out.println("Programa de prueba finalizado");

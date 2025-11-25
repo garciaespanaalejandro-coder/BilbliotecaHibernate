@@ -23,13 +23,31 @@ public class Prestamo {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "estado")
-    private EstadoPrestamo estado= EstadoPrestamo.ACTIVO;
+    private EstadoPrestamo estado;
 
-    @Column(name = "usuario_id", nullable = false)
-    private int usuario_id;
+    //@Column(name = "usuario_id", nullable = false)
+    //private int usuario_id;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
 
     @Column(name = "ejemplar_id", nullable = false)
     private int ejemplar_id;
+
+    public Prestamo() {
+        this.estado=EstadoPrestamo.ACTIVO;
+    }
+
+    public Prestamo(int id, int ejemplar_id, EstadoPrestamo estado, Usuario usuario, LocalDate fecha_devolucion, LocalDate fecha_fin, LocalDate fecha_inicio) {
+        this.id = id;
+        this.ejemplar_id = ejemplar_id;
+        this.estado = estado;
+        this.usuario = usuario;
+        this.fecha_devolucion = fecha_devolucion;
+        this.fecha_fin = fecha_fin;
+        this.fecha_inicio = fecha_inicio;
+    }
 
     public int getId() {
         return id;
@@ -71,12 +89,12 @@ public class Prestamo {
         this.estado = estado;
     }
 
-    public int getUsuario_id() {
-        return usuario_id;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setUsuario_id(int usuario_id) {
-        this.usuario_id = usuario_id;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public int getEjemplar_id() {
@@ -95,7 +113,7 @@ public class Prestamo {
                 ", fecha_fin=" + fecha_fin +
                 ", fecha_devolucion=" + fecha_devolucion +
                 ", estado=" + estado +
-                ", usuario_id=" + usuario_id +
+                ", usuario=" + usuario +
                 ", ejemplar_id=" + ejemplar_id +
                 '}';
     }

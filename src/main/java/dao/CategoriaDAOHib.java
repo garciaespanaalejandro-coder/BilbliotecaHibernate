@@ -13,6 +13,10 @@ public class CategoriaDAOHib implements CategoriaDAO{
     public CategoriaDAOHib(EntityManager entityManager){
         this.entityManager=entityManager;
     }
+
+    public CategoriaDAOHib() {
+    }
+
     @Override
     public boolean crearUsuario(Categoria categoria) {
         EntityTransaction tran= entityManager.getTransaction();

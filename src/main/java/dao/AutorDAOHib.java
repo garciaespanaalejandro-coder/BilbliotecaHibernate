@@ -14,6 +14,9 @@ public class AutorDAOHib implements AutorDAO{
         this.entityManager=entityManager;
     }
 
+    public AutorDAOHib() {
+    }
+
     @Override
     public boolean crearAutor(Autor autor) {
         EntityTransaction entityTransaction= entityManager.getTransaction();
