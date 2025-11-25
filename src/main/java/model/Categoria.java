@@ -11,10 +11,10 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "nombre", unique = true,nullable = true)
+    @Column(name = "nombre", unique = true,nullable = false)
     private String name;
 
-    @Column(name = "descripcion")
+    @Column(name = "descripcion")//NO HACE FALTA ANOTAR PORQUE LA LONGITUD POR DEFECTO ES 255
     private String descripcion;
 
     public int getId() {

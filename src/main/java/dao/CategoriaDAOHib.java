@@ -22,6 +22,7 @@ public class CategoriaDAOHib implements CategoriaDAO{
             tran.commit();
             return true;
         } catch (Exception e) {
+            //AÑADIR IF
             tran.rollback();
             return false;
         }

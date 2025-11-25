@@ -20,7 +20,7 @@ public class Usuario {
     private String nombre;
 
     @Column(name="apellidos",nullable = false, length = 100)
-    private String apellido;
+    private String apellidos;
 
     @Column(name= "email",unique = true, nullable = false,length = 100)//ponemos esto porque es unico y no es nullable es decir no admite nulos
     private String email;
@@ -34,11 +34,11 @@ public class Usuario {
     @Column(name = "fecha_registro")
     private LocalDateTime fechaRegistro;
 
-    public Usuario(int id, String dni, String nombre, String apellido, String email) {
+    public Usuario(int id, String dni, String nombre, String apellidos, String email) {
         this.id = id;
         this.dni = dni;
         this.nombre = nombre;
-        this.apellido = apellido;
+        this.apellidos = apellidos;
         this.email = email;
     }
 
@@ -61,11 +61,11 @@ public class Usuario {
     }
 
     public String getApellido() {
-        return apellido;
+        return apellidos;
     }
 
     public void setApellido(String apellido) {
-        this.apellido = apellido;
+        this.apellidos = apellido;
     }
 
     public String getEmail() {
@@ -114,7 +114,7 @@ public class Usuario {
                 "id=" + id +
                 ", dni='" + dni + '\'' +
                 ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
+                ", apellido='" + apellidos + '\'' +
                 ", email='" + email + '\'' +
                 ", telefono=" + telefono +
                 ", fechaNacimiento=" + fechaNacimiento +

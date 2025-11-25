@@ -2,6 +2,7 @@ package model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,13 +13,13 @@ public class Prestamo {
     private int id;
 
     @Column(name = "fecha_inicio", nullable = false)
-    private LocalDateTime fecha_inicio;
+    private LocalDate fecha_inicio;
 
     @Column(name = "fecha_fin", nullable = false)
-    private LocalDateTime fecha_fin;
+    private LocalDate fecha_fin;
 
     @Column(name ="fecha_devolucion")
-    private LocalDateTime fecha_devolucion;
+    private LocalDate fecha_devolucion;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "estado")
@@ -38,28 +39,28 @@ public class Prestamo {
         this.id = id;
     }
 
-    public LocalDateTime getFecha_inicio() {
+    public LocalDate getFecha_inicio() {
         return fecha_inicio;
     }
 
-    public void setFecha_inicio(LocalDateTime fecha_inicio) {
+    public void setFecha_inicio(LocalDate fecha_inicio) {
         this.fecha_inicio = fecha_inicio;
     }
 
-    public LocalDateTime getFecha_devolucion() {
-        return fecha_devolucion;
-    }
-
-    public void setFecha_devolucion(LocalDateTime fecha_devolucion) {
-        this.fecha_devolucion = fecha_devolucion;
-    }
-
-    public LocalDateTime getFecha_fin() {
+    public LocalDate getFecha_fin() {
         return fecha_fin;
     }
 
-    public void setFecha_fin(LocalDateTime fecha_fin) {
+    public void setFecha_fin(LocalDate fecha_fin) {
         this.fecha_fin = fecha_fin;
+    }
+
+    public LocalDate getFecha_devolucion() {
+        return fecha_devolucion;
+    }
+
+    public void setFecha_devolucion(LocalDate fecha_devolucion) {
+        this.fecha_devolucion = fecha_devolucion;
     }
 
     public EstadoPrestamo getEstado() {

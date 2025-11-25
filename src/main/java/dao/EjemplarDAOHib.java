@@ -45,7 +45,7 @@ public class EjemplarDAOHib implements EjemplarDAO{
             return ejemplar;
         } catch (Exception ex) {
             tran.rollback();
-            throw new RuntimeException("Error al actualizar u");
+            throw new RuntimeException("Error al actualizar un ejemplar: "+ex.getMessage());
         }
     }
 
@@ -56,7 +56,7 @@ public class EjemplarDAOHib implements EjemplarDAO{
             tran.begin();
             Ejemplar ejemplarEcontrado=entityManager.find(Ejemplar.class, e.getId());
             if (ejemplarEcontrado!=null){
-                entityManager.merge(e);
+                entityManager.remove(e);
                 tran.commit();
                 return true;
             }return false;
