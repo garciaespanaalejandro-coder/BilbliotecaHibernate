@@ -17,19 +17,19 @@ public class App {
                 .createEntityManagerFactory("biblioteca")
                 .createEntityManager()
         ){
-            System.out.println("entra aquí2");
-            UsuarioDAO usuarioDAO = new UsuarioDAOHib(em);
-
-            AutorDAO autorDAO= new AutorDAOHib(em);
-            CategoriaDAO categoriaDAO= new CategoriaDAOHib(em);
+//            System.out.println("entra aquí2");
+//            UsuarioDAO usuarioDAO = new UsuarioDAOHib(em);
+//
+//            AutorDAO autorDAO= new AutorDAOHib(em);
+//            CategoriaDAO categoriaDAO= new CategoriaDAOHib(em);
             PrestamoDAO prestamoDAO= new PrestamoDAOHib(em);
-
-//PROBAMOS PARA ENCONTRAR
-
-            System.out.println("======COMIENZO DE BUSCAR POR ID====");
-            Optional<Usuario> usuarioOptional= usuarioDAO.buscarPorId(1);
-            Optional<Categoria> categoriaOptional= categoriaDAO.buscarPorId(1);
-            Optional<Autor> autorOptional= autorDAO.buscarPorId(1);
+//
+////todo PROBAMOS PARA ENCONTRAR
+//
+//            System.out.println("======COMIENZO DE BUSCAR POR ID====");
+//            Optional<Usuario> usuarioOptional= usuarioDAO.buscarPorId(1);
+//            Optional<Categoria> categoriaOptional= categoriaDAO.buscarPorId(1);
+//            Optional<Autor> autorOptional= autorDAO.buscarPorId(1);
             Optional<Prestamo> prestamoOptional= prestamoDAO.buscarPorId(1);
 
 //            if (usuarioOptional.isPresent()){
@@ -38,20 +38,20 @@ public class App {
 //            }else {
 //                System.out.println("Usuario no econtrado");
 //            }
-
-           if (categoriaOptional.isPresent()){
-               System.out.println("===CATEGORIA ENCONTRADA===");
-               System.out.println(categoriaOptional.get());
-           }else {
-               System.out.println("categoria no econtrada");
-           }
-
-           if (autorOptional.isPresent()){
-               System.out.println("===AUTOR ENCONTRADO===");
-               System.out.println(autorOptional.get());
-           }else {
-               System.out.println("autor no econtrado");
-           }
+//
+//           if (categoriaOptional.isPresent()){
+//               System.out.println("===CATEGORIA ENCONTRADA===");
+//               System.out.println(categoriaOptional.get());
+//           }else {
+//               System.out.println("categoria no econtrada");
+//           }
+//
+//           if (autorOptional.isPresent()){
+//               System.out.println("===AUTOR ENCONTRADO===");
+//               System.out.println(autorOptional.get());
+//           }else {
+//               System.out.println("autor no econtrado");
+//           }
 
 
            System.out.println("======BUSCAR PRESTAMO POR ID=====");

@@ -19,8 +19,12 @@ public class Ejemplar {
     @Column(name = "ubicacion", length = 100)
     private String ubicacion;
 
-    @Column(name = "libro_id")
-    private int libro_id;
+    @OneToOne
+    @JoinColumn(name = "libro_id")
+    private Libro libro;
+
+    @OneToOne(mappedBy = "ejemplar", cascade = CascadeType.ALL)
+    private Prestamo prestamo;
 
     public int getId() {
         return id;
@@ -28,6 +32,22 @@ public class Ejemplar {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Libro getLibro() {
+        return libro;
+    }
+
+    public void setLibro(Libro libro) {
+        this.libro = libro;
+    }
+
+    public EstadoENUM getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoENUM estado) {
+        this.estado = estado;
     }
 
     public String getCodigo() {
@@ -46,22 +66,6 @@ public class Ejemplar {
         this.ubicacion = ubicacion;
     }
 
-    public int getLibro_id() {
-        return libro_id;
-    }
-
-    public void setLibro_id(int libro_id) {
-        this.libro_id = libro_id;
-    }
-
-    public EstadoENUM getEstado() {
-        return estado;
-    }
-
-    public void setEstado(EstadoENUM estado) {
-        this.estado = estado;
-    }
-
     @Override
     public String toString() {
         return "Ejemplar{" +
@@ -69,7 +73,7 @@ public class Ejemplar {
                 ", codigo='" + codigo + '\'' +
                 ", estado=" + estado +
                 ", ubicacion='" + ubicacion + '\'' +
-                ", libro_id=" + libro_id +
+                ", libro_id=" + libro +
                 '}';
     }
 }
