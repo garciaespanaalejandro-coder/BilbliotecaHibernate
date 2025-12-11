@@ -130,3 +130,24 @@ INSERT INTO prestamo (fecha_inicio, fecha_fin, fecha_devolucion, estado, usuario
 ('2024-01-10', '2024-01-24', '2024-01-23', 'DEVUELTO', 1, 3),
 ('2024-02-01', '2024-02-15', NULL, 'ACTIVO', 2, 6),
 ('2024-01-15', '2024-01-29', '2024-02-01', 'RETRASADO', 3, 1);
+
+
+CREATE TABLE favoritos(
+    usuario_id int,
+    libro_id,
+    PRIMARY KEY(usuario_id, libro_id),
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE,
+    FOREIGN KEY (libro_id) REFERENCES libro(id) ON DELETE CASCADE
+);
+
+INSERT INTO favoritos (usuario_id, libro_id) VALUES (1,1);
+INSERT INTO favoritos (usuario_id, libro_id) VALUES (1,3);
+INSERT INTO favoritos (usuario_id, libro_id) VALUES (1,5);
+
+INSERT INTO favoritos (usuario_id, libro_id) VALUES (2,1);
+INSERT INTO favoritos (usuario_id, libro_id) VALUES (2,3);
+INSERT INTO favoritos (usuario_id, libro_id) VALUES (2,5);
+
+INSERT INTO favoritos (usuario_id, libro_id) VALUES (3,1);
+INSERT INTO favoritos (usuario_id, libro_id) VALUES (3,7);
+INSERT INTO favoritos (usuario_id, libro_id) VALUES (3,9);

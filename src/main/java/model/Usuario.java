@@ -1,31 +1,35 @@
 package model;
 
+
 import jakarta.persistence.*;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name= "usuario")
+@Table(name = "usuario")
 public class Usuario {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)//se usa cuando la base de datos es autoincrement
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name= "dni",unique = true, nullable = false,length = 20)//ponemos esto porque es unico y no es nullable es decir no admite nulos
+    @Column(name = "dni", unique = true, nullable = false, length = 20)
     private String dni;
 
-    @Column(name="nombre",nullable = false, length = 100)
+    @Column(name = "nombre", nullable = false, length = 100)
     private String nombre;
 
-    @Column(name="apellidos",nullable = false, length = 100)
+    @Column(name = "apellidos", nullable = false, length = 100)
     private String apellidos;
 
-    @Column(name= "email",unique = true, nullable = false,length = 100)//ponemos esto porque es unico y no es nullable es decir no admite nulos
+    @Column(name = "email", unique = true, nullable = false, length = 100)
     private String email;
 
-    @Column(name= "telefono",length = 20)
+    @Column(name = "telefono", length = 20)
     private String telefono;
 
     @Column(name = "fecha_nacimiento")
@@ -34,15 +38,18 @@ public class Usuario {
     @Column(name = "fecha_registro")
     private LocalDateTime fechaRegistro;
 
-    public Usuario(int id, String dni, String nombre, String apellidos, String email) {
-        this.id = id;
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Prestamo> prestamos = new ArrayList<>();
+
+    // Constructores
+    public Usuario() {}
+
+    public Usuario(String dni, String nombre, String apellidos, String email) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.email = email;
     }
-
-    public Usuario() {}
 
     public int getId() {
         return id;
@@ -60,12 +67,20 @@ public class Usuario {
         this.dni = dni;
     }
 
-    public String getApellido() {
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
         return apellidos;
     }
 
-    public void setApellido(String apellido) {
-        this.apellidos = apellido;
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     public String getEmail() {
@@ -76,20 +91,20 @@ public class Usuario {
         this.email = email;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getTelefono() {
+        return telefono;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(LocalDate fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
+    public void setFechaNacimiento(String fecha) {
+        this.fechaNacimiento = LocalDate.parse(fecha);
     }
 
     public LocalDateTime getFechaRegistro() {
@@ -100,25 +115,30 @@ public class Usuario {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public List<Prestamo> getPrestamos() { return prestamos; }
+    public void setPrestamos(List<Prestamo> prestamos) { this.prestamos = prestamos; }
+
+    // Helper methods para mantener la relación
+    public void addPrestamo(Prestamo prestamo) {
+        prestamos.add(prestamo);
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void removePrestamo(Prestamo prestamo) {
+        prestamos.remove(prestamo);
     }
 
     @Override
     public String toString() {
-        return "Usuario{" +
+        return "\n Usuario{" +
                 "id=" + id +
                 ", dni='" + dni + '\'' +
                 ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellidos + '\'' +
+                ", apellidos='" + apellidos + '\'' +
                 ", email='" + email + '\'' +
-                ", telefono=" + telefono +
+                ", telefono='" + telefono + '\'' +
                 ", fechaNacimiento=" + fechaNacimiento +
                 ", fechaRegistro=" + fechaRegistro +
+                ", cantidadPrestamos= "+this.prestamos.size() +
                 '}';
     }
 }

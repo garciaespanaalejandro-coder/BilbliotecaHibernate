@@ -2,8 +2,12 @@ package dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
 import model.Libro;
+import model.Prestamo;
+import model.Usuario;
 
+import java.util.List;
 import java.util.Optional;
 
 public class LibroDAOHib implements LibroDAO{
@@ -63,5 +67,19 @@ public class LibroDAOHib implements LibroDAO{
             tran.rollback();
             return false;
         }
+    }
+
+    public List<Libro> recuperarTodos(){
+        String jpql= "SELECT l FROM Libro l"; //p es all, utilizamos un alias
+        TypedQuery<Libro> query= entityManager.createQuery(jpql, Libro.class);
+        return query.getResultList();
+    }
+
+    public Optional<Libro> libroPorNombre(String nombre){
+        String jpql="SELECT l FROM Libro l WHERE l.titulo= :nombre";
+        TypedQuery<Libro> query= entityManager.createQuery(jpql, Libro.class);
+        query.setParameter("nombre", nombre);
+        Libro libro= query.getSingleResult();
+        return Optional.of(libro);
     }
 }

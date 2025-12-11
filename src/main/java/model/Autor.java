@@ -7,21 +7,23 @@ import jakarta.persistence.*;
 public class Autor {
 
     @Id
-    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
-    @Column(name = "nombre", length = 100, nullable = false)
+    @Column(name = "nombre", nullable = false, length = 100)
     private String nombre;
 
     @Column(name = "nacionalidad", length = 50)
     private String nacionalidad;
 
-    public String getNombre() {
-        return nombre;
+    public Autor(int id, String nombre, String nacionalidad) {
+        this.id = id;
+        this.nombre = nombre;
+        this.nacionalidad = nacionalidad;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public Autor() {
     }
 
     public int getId() {
@@ -30,6 +32,14 @@ public class Autor {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getNacionalidad() {
@@ -49,3 +59,4 @@ public class Autor {
                 '}';
     }
 }
+

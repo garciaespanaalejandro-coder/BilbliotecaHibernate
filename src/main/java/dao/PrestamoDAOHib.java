@@ -1,10 +1,13 @@
 package dao;
 
 
+import criteria.PrestamoCriteria;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
 import model.Prestamo;
 
+import java.util.List;
 import java.util.Optional;
 
 public class PrestamoDAOHib implements PrestamoDAO {
@@ -66,4 +69,33 @@ public class PrestamoDAOHib implements PrestamoDAO {
             return false;
         }
     }
+
+    public List<Prestamo> recuperarTodos(){
+        String jpql= "SELECT p FROM Prestamo p"; //p es all, utilizamos un alias
+        TypedQuery<Prestamo> query= entityManager.createQuery(jpql, Prestamo.class);
+        return query.getResultList();
+    }
+
+    public List<Prestamo> getPrestamoCriteria(PrestamoCriteria prestamoCriteria){
+        String jpql="SELECT p FROM Prestamo p WHERE 1=1 ";
+        if (prestamoCriteria.isPresentEstadoprestamo()){
+            jpql +=" AND p.estado =: estadoPrestamo";
+        }
+        if (prestamoCriteria.isPresentFechaInicio()){
+            jpql+= " AND p.fechaInicio = BETWEEN :fecaInicio AND fechaFin ";
+        }
+        TypedQuery<Prestamo> query= entityManager.createQuery(jpql, Prestamo.class);
+        if (prestamoCriteria.isPresentEstadoprestamo()){
+            query.setParameter("estadoPrestamo",
+                    prestamoCriteria.getEstadoPrestamo());
+        }
+        if (prestamoCriteria.isPresentFechaInicio()){
+            query.setParameter("fechaInicio",
+                    prestamoCriteria.getIniFechaInicio());
+            query.setParameter("fechaFin",
+                    prestamoCriteria.getIniFechaFin());
+        }
+        return query.getResultList();
+    }
+
 }

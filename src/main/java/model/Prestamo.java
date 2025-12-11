@@ -1,61 +1,77 @@
 package model;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 
 @Entity
-@Table(name ="prestamo" )
+@Table(name = "prestamo")
 public class Prestamo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private int id;
 
-    @Column(name = "fecha_inicio", nullable = false)
-    private LocalDate fecha_inicio;
+    @Column(name="fecha_inicio", nullable = false)
+    private LocalDate fechaInicio;
 
-    @Column(name = "fecha_fin", nullable = false)
-    private LocalDate fecha_fin;
+    @Column(name="fecha_fin", nullable = false)
+    private LocalDate fechaFin;
 
-    @Column(name ="fecha_devolucion")
-    private LocalDate fecha_devolucion;
+    @Column(name="fecha_devolucion")
+    private LocalDate fechaDevolucion;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "estado")
+    @Column(name="estado", nullable = false)
     private EstadoPrestamo estado;
 
-    //@Column(name = "usuario_id", nullable = false)
-    //private int usuario_id;
-
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "usuario_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="usuario_id", nullable = false)
     private Usuario usuario;
 
-    @OneToOne
-    @JoinColumn(name = "ejemplar_id",nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="ejemplar_id", nullable = false)
     private Ejemplar ejemplar;
 
-    public Prestamo() {
-        this.estado=EstadoPrestamo.ACTIVO;
+    public enum EstadoPrestamo {
+        ACTIVO, DEVUELTO, RETRASADO
     }
 
-    public Prestamo(int id, LocalDate fecha_inicio, LocalDate fecha_fin, LocalDate fecha_devolucion, EstadoPrestamo estado, Usuario usuario, Ejemplar ejemplar) {
+    public Prestamo() {}
+
+    public Prestamo(int id, LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaDevolucion,
+                    EstadoPrestamo estado, Usuario usuario, Ejemplar ejemplar) {
         this.id = id;
-        this.fecha_inicio = fecha_inicio;
-        this.fecha_fin = fecha_fin;
-        this.fecha_devolucion = fecha_devolucion;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.fechaDevolucion = fechaDevolucion;
         this.estado = estado;
-        this.usuario = usuario;
+        this.usuario =usuario;
         this.ejemplar = ejemplar;
     }
 
-    public int getId() {
-        return id;
+    // Getters y Setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
+    public LocalDate getFechaInicio() { return fechaInicio; }
+    public void setFechaInicio(LocalDate fechaInicio) { this.fechaInicio = fechaInicio; }
+
+    public LocalDate getFechaFin() { return fechaFin; }
+    public void setFechaFin(LocalDate fechaFin) { this.fechaFin = fechaFin; }
+
+    public LocalDate getFechaDevolucion() { return fechaDevolucion; }
+    public void setFechaDevolucion(LocalDate fechaDevolucion) { this.fechaDevolucion = fechaDevolucion; }
+
+    public EstadoPrestamo getEstado() { return estado; }
+    public void setEstado(EstadoPrestamo estado) { this.estado = estado; }
+
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public Ejemplar getEjemplar() {
@@ -66,56 +82,17 @@ public class Prestamo {
         this.ejemplar = ejemplar;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public EstadoPrestamo getEstado() {
-        return estado;
-    }
-
-    public void setEstado(EstadoPrestamo estado) {
-        this.estado = estado;
-    }
-
-    public LocalDate getFecha_devolucion() {
-        return fecha_devolucion;
-    }
-
-    public void setFecha_devolucion(LocalDate fecha_devolucion) {
-        this.fecha_devolucion = fecha_devolucion;
-    }
-
-    public LocalDate getFecha_inicio() {
-        return fecha_inicio;
-    }
-
-    public void setFecha_inicio(LocalDate fecha_inicio) {
-        this.fecha_inicio = fecha_inicio;
-    }
-
-    public LocalDate getFecha_fin() {
-        return fecha_fin;
-    }
-
-    public void setFecha_fin(LocalDate fecha_fin) {
-        this.fecha_fin = fecha_fin;
-    }
-
     @Override
     public String toString() {
-        return "Prestamo{" +
+        return "\n Prestamo{" +
                 "id=" + id +
-                ", fecha_inicio=" + fecha_inicio +
-                ", fecha_fin=" + fecha_fin +
-                ", fecha_devolucion=" + fecha_devolucion +
+                ", fechaInicio=" + fechaInicio +
+                ", fechaFin=" + fechaFin +
+                ", fechaDevolucion=" + fechaDevolucion +
                 ", estado=" + estado +
-                ", usuario=" + usuario +
-                ", ejemplar_id=" + ejemplar.getId() +
+                ", usuarioId=" + this.usuario +
+                ", ejemplarId=" + this.ejemplar +
                 '}';
     }
 }
+
